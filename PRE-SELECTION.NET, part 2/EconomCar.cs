@@ -4,7 +4,27 @@ namespace PRE_SELECTION.NET__part_2
 {
     class EconomCar : LuxCar
     {
-        protected int Discount { set; get; }
+        private int discount;
+        public int Discount 
+        {
+            set
+            {
+                if (value < 0 || value > 100)
+                {
+                    throw new Exception("Invalid discount!");
+                }
+                else
+                {
+                    discount = value;
+                }
+            }
+
+            get
+            {
+                return discount;
+            }
+
+        }
         public EconomCar(string name, double price, double fuel_cons, int car_id, double lux_rate, int discount) : base(name, price, fuel_cons, car_id, lux_rate)
         {
             Discount = discount;

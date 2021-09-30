@@ -7,10 +7,51 @@ namespace PRE_SELECTION.NET__part_2
     {
         static void Main(string[] args)
         {
-            EconomCar Reno = new EconomCar("Pegeot_407", 5300, 10.1, 1, 5.0, 20);
-            LuxCar Porsche = new LuxCar("Porsche Cayene", 20000, 25.2, 2, 9.9);
-            ChildCar VWPolo = new ChildCar("Renault", 4800, 6.2, 3, true);
-            EconomCar Citroen = new EconomCar("Citroen C5", 4000, 7.8, 4, 5.0, 20);
+            EconomCar Reno;
+            LuxCar Porsche;
+            ChildCar VWPolo;
+            EconomCar Citroen;
+
+            try
+            {
+                Reno = new EconomCar("Pegeot_407", 5300, 10.1, 1, 5.0, 20);
+            }
+            catch (YandexTaxiException ex)
+            {
+                Console.WriteLine("Ошибка: " + ex.Message);
+            }
+            Console.Read();
+
+            try
+            {
+                Porsche = new LuxCar("Porsche Cayene", 20000, 25.2, 2, 9.9);
+            }
+            catch (YandexTaxiException ex)
+            {
+                Console.WriteLine("Ошибка: " + ex.Message);
+            }
+            Console.Read();
+
+            try
+            {
+                VWPolo = new ChildCar("Renault", 4800, 6.2, 3, true);
+            }
+            catch (YandexTaxiException ex)
+            {
+                Console.WriteLine("Ошибка: " + ex.Message);
+            }
+            Console.Read();
+
+            try
+            {
+                Citroen = new EconomCar("Citroen C5", 4000, 7.8, 4, 5.0, 20);
+            }
+            catch (YandexTaxiException ex)
+            {
+                Console.WriteLine("Ошибка: " + ex.Message);
+            }
+            Console.Read();
+
 
             List<YandexTaxi> TaxiCars = new List<YandexTaxi>() { Reno, Porsche, VWPolo, Citroen };
 

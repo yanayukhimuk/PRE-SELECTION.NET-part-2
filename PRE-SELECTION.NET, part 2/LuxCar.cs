@@ -4,7 +4,28 @@ namespace PRE_SELECTION.NET__part_2
 {
     class LuxCar : YandexTaxi
     {
-        protected double CarRate { set; get; }
+        private double rate;
+        public double CarRate
+        {
+            set
+            {
+                if (value < 0 || value > 10)
+                {
+                    throw new Exception("Invalid rate!");
+                }
+                else
+                {
+                    rate = value;
+                }
+
+            }
+
+            get
+            {
+                return rate;
+            }
+
+        }
         public LuxCar(string name, double price, double fuel_cons, int car_id, double lux_rate) : base(name, price, fuel_cons, car_id)
         {
             CarRate = lux_rate;
