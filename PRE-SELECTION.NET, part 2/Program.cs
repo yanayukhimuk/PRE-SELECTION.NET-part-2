@@ -1,90 +1,59 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PRE_SELECTION.NET__part_2
 {
     class Program
     {
-        abstract class YandexTaxi
-        {
-            public string CarName;
-            public double CarPrice;
-            double FuelConsumption;
-
-            public YandexTaxi(string name, double price, double fuel_cons)
-            {
-                CarName = name;
-                CarPrice = price;
-                FuelConsumption = fuel_cons;
-            }
-            public void DisplayCar()
-            {
-                Console.WriteLine($"Car model: {CarName}  Car price: {CarPrice}  Fuel consumption: {FuelConsumption}");
-            }
-
-        }
-
-        class EconomCar : YandexTaxi
-        {
-            public double CarRate { set; get; }
-            public int Discount { set; get; }
-            public EconomCar(string name, double price, double fuel_cons, int discount) : base(name, price, fuel_cons)
-            {
-                Discount = discount;
-            }
-
-            public double FinalConsumption(double fuel_cons, int discount)
-            {
-                return fuel_cons * discount / 100;
-            }
-
-        }
-
-        class LuxCar : YandexTaxi
-        {
-            public double CarRate { set; get; }
-            public LuxCar(string name, double price, double fuel_cons, double lux_rate) : base(name, price, fuel_cons)
-            {
-                CarRate = lux_rate;
-            }
-
-            public double FinalCarPriceAcctoRate(double lux_rate, double price)
-            {
-                if (lux_rate >= 8 && lux_rate <= 10)
-                {
-                    Console.WriteLine("You have a luxury car!");
-                    return price * lux_rate;
-                }
-                else if (lux_rate > 10 || lux_rate < 0)
-                {
-                    Console.WriteLine("Wrong rate has been enetered!");
-                    return price * 0;
-                }
-                else
-                {
-                    Console.WriteLine("You have an econom car!s");
-                    return price;
-                }
-            }
-        }
-
-        class ChildCar : YandexTaxi
-        {
-            bool ChildSeat { set; get; }
-            public ChildCar(string name, double price, double fuel_cons, bool child_seat) : base(name, price, fuel_cons)
-            {
-                ChildSeat = child_seat;
-            }
-        }
         static void Main(string[] args)
         {
-            EconomCar Reno = new EconomCar ("Pegeot_407", 5300, 10.1, 20);
-            LuxCar Porsche = new LuxCar("Porsche Cayene", 20000, 25.2, 9.9);
-            ChildCar childCar = new ChildCar("Renault", 4800, 6.2, true);
+            EconomCar Reno = new EconomCar("Pegeot_407", 5300, 10.1, 1, 5.0, 20);
+            LuxCar Porsche = new LuxCar("Porsche Cayene", 20000, 25.2, 2, 9.9);
+            ChildCar VWPolo = new ChildCar("Renault", 4800, 6.2, 3, true);
+            EconomCar Citroen = new EconomCar("Citroen C5", 4000, 7.8, 4, 5.0, 20);
 
-            double TotalPrice = Reno.CarPrice + Porsche.CarPrice + childCar.CarPrice;
-            Console.WriteLine($"The total taxi price is: {TotalPrice}" );
+            List<YandexTaxi> TaxiCars = new List<YandexTaxi>() { Reno, Porsche, VWPolo, Citroen };
 
-            Console.WriteLine("The most economic car is: ");
+            double TotalPrice = 0.0;
+            foreach (YandexTaxi car in TaxiCars)
+            {
+                TotalPrice += car.CarPrice;
+            }
+
+            Console.WriteLine($"The total taxi park price is: {TotalPrice}");
+
+            foreach (YandexTaxi car in TaxiCars)
+            {
+                car.DisplayCar();
+            }
+            TaxiCars.Sort((car1, car2) => car1.FuelConsumption.CompareTo(car2.FuelConsumption));
+
+            Console.WriteLine("Sorted cars: ");
+            foreach (YandexTaxi car in TaxiCars)
+            {
+                car.DisplayCar();
+            }
+
+            Console.WriteLine("Enter the starting price: ");
+            int StartPrice = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter the final price: ");
+            int FinalPrice = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Searching cars by price");
+            foreach (YandexTaxi car in TaxiCars)
+            {
+                if (car.CarPrice >= StartPrice && car.CarPrice <= FinalPrice)
+                {
+                    car.DisplayCar();
+                }
+
+                else
+                {
+                    Console.WriteLine("No such cars!");
+                }
+            }
+
 
         }
     }
